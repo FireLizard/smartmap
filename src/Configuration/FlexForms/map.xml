@@ -1,0 +1,27 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <dataProvider>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.dataProvider</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.flexform.dataProviderClass>
+                        <TCEforms>
+                            <label>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.dataProvider</label>
+                            <config>
+                                <type>select</type>
+                                <eval>required</eval>
+                                <itemsProcFunc>Phoenix\Smartmap\Service\DataProviderService->getDataProviders</itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.flexform.dataProviderClass>
+                </el>
+            </ROOT>
+        </dataProvider>
+    </sheets>
+</T3DataStructure>
