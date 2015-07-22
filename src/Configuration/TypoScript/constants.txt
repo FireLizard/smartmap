@@ -12,4 +12,14 @@ plugin.tx_smartmap {
 		# cat=plugin.tx_smartmap//a; type=string; label=Default storage PID
 		storagePid =
 	}
+	settings {
+		assets {
+			leaflet {
+				js {
+				}
+				css {
+				}
+			}
+		}
+	}
 }
