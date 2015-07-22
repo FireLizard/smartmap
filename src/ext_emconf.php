@@ -29,6 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'conflicts' => array(
 		),
 		'suggests' => array(
+			'phpunit' => '4.4.0',
 		),
 	),
 );
