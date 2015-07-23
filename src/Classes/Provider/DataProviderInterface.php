@@ -1,6 +1,6 @@
 <?php
 
-namespace Phoenix\Smartmap\Interface;
+namespace Phoenix\Smartmap\Provider;
 
 interface DataProviderInterface
 {

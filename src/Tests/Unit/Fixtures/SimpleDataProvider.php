@@ -5,7 +5,7 @@ namespace Phoenix\Smartmap\Tests\Unit\Fixtures;
 /**
  * Simple data provider
  */
-class SimpleDataProvider extends  \Phoenix\Smartmap\Interface\DataProviderInterface
+class SimpleDataProvider extends  \Phoenix\Smartmap\Provider\DataProviderInterface
 {
     /**
      * @{inherit}

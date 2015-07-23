@@ -14,7 +14,7 @@ class DataProviderService
 
     /**
      * Get all data providers by dispatching a signal
-     * @return array $config An array filled with \Phoenix\Smartmap\Interface\DataProviderInterface (if any exists).
+     * @return array $config An array filled with \Phoenix\Smartmap\Provider\DataProviderInterface (if any exists).
      */
     public static function getDataProviders($config)
     {
