@@ -5,7 +5,7 @@ namespace Phoenix\Smartmap\Controller;
 /**
  * Map Controller.
  */
-class MapController extends \Sle\TYPO3\Extbase\Controller\BaseController
+class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
      * initialize action show.
