@@ -3,25 +3,21 @@
 namespace Phoenix\Smartmap\Controller;
 
 /**
- * Map Controller
+ * Map Controller.
  */
 class MapController extends \Sle\TYPO3\Extbase\Controller\BaseController
 {
     /**
-     * initialize action show
-     *
-     * @return void
+     * initialize action show.
      */
-    public function initializeShowAction() {
-
+    public function initializeShowAction()
+    {
     }
 
     /**
-     * action show
-     *
-     * @return void
+     * action show.
      */
-    public function showAction() {
-
+    public function showAction()
+    {
     }
 }
