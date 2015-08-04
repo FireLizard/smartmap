@@ -14,8 +14,6 @@ class MapController extends \Sle\TYPO3\Extbase\Controller\BaseController
      */
     public function initializeShowAction() {
 
-        $this->addStylesheets((array) $this->settings['assets']['leaflet']['css']);
-        $this->addJavascripts((array) $this->settings['assets']['leaflet']['js']);
     }
 
     /**

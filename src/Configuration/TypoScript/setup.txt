@@ -13,16 +13,6 @@ plugin.tx_smartmap {
 		# rewrittenPropertyMapper = 1
 	}
 	settings {
-		assets {
-			leaflet {
-				js {
-					0 = EXT:Resources/Public/vendor/leaflet/dist/leaflet.js
-				}
-				css {
-					0 = EXT:Resources/Public/vendor/leaflet/dist/leaflet.css
-				}
-			}
-		}
 	}
 }
 

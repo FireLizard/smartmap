@@ -13,13 +13,5 @@ plugin.tx_smartmap {
 		storagePid =
 	}
 	settings {
-		assets {
-			leaflet {
-				js {
-				}
-				css {
-				}
-			}
-		}
 	}
 }
