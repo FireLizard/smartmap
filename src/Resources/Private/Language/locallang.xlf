@@ -3,8 +3,14 @@
 	<file source-language="en" datatype="plaintext" original="messages" product-name="smartmap">
 		<header/>
 		<body>
+			<trans-unit id="map.provider">
+				<source>Provider</source>
+			</trans-unit>
 			<trans-unit id="map.dataProvider">
 				<source>Data Provider</source>
+			</trans-unit>
+			<trans-unit id="map.mapLibraryProvider">
+				<source>Map Provider</source>
 			</trans-unit>
 		</body>
 	</file>

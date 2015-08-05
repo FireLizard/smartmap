@@ -6,7 +6,7 @@
         <dataProvider>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.dataProvider</sheetTitle>
+                    <sheetTitle>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.provider</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
@@ -20,6 +20,21 @@
                             </config>
                         </TCEforms>
                     </settings.flexform.dataProviderClass>
+                    <settings.flexform.mapLibraryProvider>
+                        <TCEforms>
+                            <label>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.mapLibraryProvider</label>
+                            <config>
+                                <type>select</type>
+                                <eval>required</eval>
+                                <items type="array">
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">Leaflet</numIndex>
+                                        <numIndex index="1">leaflet</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.flexform.mapLibraryProvider>
                 </el>
             </ROOT>
         </dataProvider>
