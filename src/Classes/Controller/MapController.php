@@ -20,4 +20,9 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function showAction()
     {
     }
+
+    public function ajaxAction()
+    {
+        return json_encode($this->request->getArguments());
+    }
 }

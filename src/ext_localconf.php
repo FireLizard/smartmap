@@ -8,7 +8,7 @@ if (!defined('TYPO3_MODE')) {
     'Phoenix.'.$_EXTKEY,
     'Map',
     array(
-        'Map' => 'show',
+        'Map' => 'show, ajax',
 
     ),
     // non-cacheable actions
