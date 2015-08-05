@@ -8,6 +8,22 @@ namespace Phoenix\Smartmap\Controller;
 class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
+     * MapService
+     *
+     * @var \Phoenix\Smartmap\Service\MapService
+     * @inject
+     */
+    protected $service = NULL;
+
+    /**
+     * beratungsstelleRepository
+     *
+     * @var \Phoenix\Smartmap\Helper\Helper
+     * @inject
+     */
+    protected $helper = NULL;
+
+    /**
      * initialize action show.
      */
     public function initializeShowAction()
@@ -19,10 +35,31 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAction()
     {
+        $contentObj = $this->configurationManager->getContentObject();
+
+        $this->view->assign('uid', $contentObj->data['uid']);
     }
 
+    /**
+     * AJAX handler
+     */
     public function ajaxAction()
     {
-        return json_encode($this->request->getArguments());
+        $args = $this->request->getArguments();
+        $this->settings = array_merge($this->settings, $this->helper->findFlexformDataByUid($this->request->getArguments()['uid']));
+
+        $response = array(
+            'metadata' => array(
+                'settings' => $this->settings,
+            ),
+            'data' => array(),
+        );
+
+        if ($this->request->hasArgument('service') && is_callable(array($this->service, $args['service']))){
+
+            $response['data'] = $this->service->{$args['service']}();
+        }
+
+        return json_encode($response);
     }
 }
