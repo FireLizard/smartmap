@@ -16,7 +16,7 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $service = NULL;
 
     /**
-     * beratungsstelleRepository
+     * Helper
      *
      * @var \Phoenix\Smartmap\Helper\Helper
      * @inject
@@ -51,13 +51,17 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $response = array(
             'metadata' => array(
                 'settings' => $this->settings,
+                'service' => '',
             ),
             'data' => array(),
         );
 
         if ($this->request->hasArgument('service') && is_callable(array($this->service, $args['service']))){
 
+            $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+            $this->service->setDataProvider($provider);
             $response['data'] = $this->service->{$args['service']}();
+            $response['metadata']['service'] = $args['service'];
         }
 
         return json_encode($response);
