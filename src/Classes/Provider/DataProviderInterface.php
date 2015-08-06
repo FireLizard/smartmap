@@ -12,4 +12,11 @@ interface DataProviderInterface
      * @return array
      */
     public function getAllCoords();
+
+    /**
+     * Get content of all popups as array like: array(popup1, popup2, ...).
+     *
+     * @return array
+     */
+    public function getAllPopupsContent();
 }

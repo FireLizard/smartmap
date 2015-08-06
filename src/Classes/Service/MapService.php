@@ -29,12 +29,15 @@ class MapService
     }
 
     /**
-     * Get all coords from data provider
+     * Get all markers from data provider. Marker means a structure of coords, popup and additional metadata.
      *
      * @return array
      */
-    public function getCoords()
+    public function getMarkers()
     {
-        return (array) $this->dataProvider->getAllCoords();
+        $markers['coords'] = (array) $this->dataProvider->getAllCoords();
+        $markers['popup'] = (array) $this->dataProvider->getAllPopupsContent();
+
+        return $markers;
     }
 }

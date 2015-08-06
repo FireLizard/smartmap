@@ -31,7 +31,7 @@ var Smartmap = (function(window, document, $, undefined){
                 provider.createMap();
 
                 switch (response.metadata.service) {
-                    case 'getCoords':
+                    case 'getMarkers':
                         provider.pinMarker();
                         break;
                     default:
@@ -78,9 +78,13 @@ var Smartmap = (function(window, document, $, undefined){
 
             this.pinMarker = function() {
 
-                for (var coords in data) {
-                    if (data.hasOwnProperty(coords)) {
-                        markers.push(L.marker([parseFloat(data[coords].lat), parseFloat(data[coords].lon)]).addTo(map));
+                for (var element in data.coords) {
+                    if (data.coords.hasOwnProperty(element)) {
+                        markers.push(
+                            L.marker([parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon)])
+                            .addTo(map)
+                            .bindPopup(data.popup[element])
+                        );
                     }
                 }
 
