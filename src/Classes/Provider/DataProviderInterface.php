@@ -19,4 +19,11 @@ interface DataProviderInterface
      * @return array
      */
     public function getAllPopupsContent();
+
+    /**
+     * Returns a rendered filter formular
+     *
+     * @return string
+     */
+    public function getFilterTemplate();
 }

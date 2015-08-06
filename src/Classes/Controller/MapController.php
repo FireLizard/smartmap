@@ -36,8 +36,19 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function showAction()
     {
         $contentObj = $this->configurationManager->getContentObject();
+        $filterTemplate = NULL;
 
-        $this->view->assign('uid', $contentObj->data['uid']);
+        if ($provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['flexform']['dataProviderClass'])){
+
+            $filterTemplate = $provider->getFilterTemplate();
+        }
+
+        $viewVars = array(
+            'uid' => $contentObj->data['uid'],
+            'filter' => $filterTemplate,
+        );
+
+        $this->view->assignMultiple($viewVars);
     }
 
     /**
