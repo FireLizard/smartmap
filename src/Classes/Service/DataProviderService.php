@@ -3,7 +3,7 @@
 namespace Phoenix\Smartmap\Service;
 
 /**
- * Service to handle data providers
+ * Service to handle data providers.
  */
 class DataProviderService
 {
@@ -13,7 +13,8 @@ class DataProviderService
     public static $GET_DATA_PROVIDER_SIGNAL = 'getSmartMapDataProvider';
 
     /**
-     * Get all data providers by dispatching a signal
+     * Get all data providers by dispatching a signal.
+     *
      * @return array $config An array filled with \Phoenix\Smartmap\Provider\DataProviderInterface (if any exists).
      */
     public static function getDataProviders($config)

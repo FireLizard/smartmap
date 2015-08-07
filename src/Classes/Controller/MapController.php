@@ -3,27 +3,78 @@
 namespace Phoenix\Smartmap\Controller;
 
 /**
- * Map Controller
+ * Map Controller.
  */
-class MapController extends \Sle\TYPO3\Extbase\Controller\BaseController
+class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
-     * initialize action show
+     * MapService
      *
-     * @return void
+     * @var \Phoenix\Smartmap\Service\MapService
+     * @inject
      */
-    public function initializeShowAction() {
+    protected $service = NULL;
 
-        $this->addStylesheets((array) $this->settings['assets']['leaflet']['css']);
-        $this->addJavascripts((array) $this->settings['assets']['leaflet']['js']);
+    /**
+     * Helper
+     *
+     * @var \Phoenix\Smartmap\Helper\Helper
+     * @inject
+     */
+    protected $helper = NULL;
+
+    /**
+     * initialize action show.
+     */
+    public function initializeShowAction()
+    {
     }
 
     /**
-     * action show
-     *
-     * @return void
+     * action show.
      */
-    public function showAction() {
+    public function showAction()
+    {
+        $contentObj = $this->configurationManager->getContentObject();
+        $filterTemplate = NULL;
 
+        if ($provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['flexform']['dataProviderClass'])){
+
+            $filterTemplate = $provider->getFilterTemplate();
+        }
+
+        $viewVars = array(
+            'uid' => $contentObj->data['uid'],
+            'filter' => $filterTemplate,
+        );
+
+        $this->view->assignMultiple($viewVars);
+    }
+
+    /**
+     * AJAX handler
+     */
+    public function ajaxAction()
+    {
+        $args = $this->request->getArguments();
+        $this->settings = array_merge($this->settings, $this->helper->findFlexformDataByUid($this->request->getArguments()['uid']));
+
+        $response = array(
+            'metadata' => array(
+                'settings' => $this->settings,
+                'service' => '',
+            ),
+            'data' => array(),
+        );
+
+        if ($this->request->hasArgument('service') && is_callable(array($this->service, $args['service']))){
+
+            $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+            $this->service->setDataProvider($provider);
+            $response['data'] = $this->service->{$args['service']}();
+            $response['metadata']['service'] = $args['service'];
+        }
+
+        return json_encode($response);
     }
 }

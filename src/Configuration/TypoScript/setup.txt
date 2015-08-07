@@ -13,16 +13,6 @@ plugin.tx_smartmap {
 		# rewrittenPropertyMapper = 1
 	}
 	settings {
-		assets {
-			leaflet {
-				js {
-					0 = EXT:Resources/Public/vendor/leaflet/dist/leaflet.js
-				}
-				css {
-					0 = EXT:Resources/Public/vendor/leaflet/dist/leaflet.css
-				}
-			}
-		}
 	}
 }
 
@@ -59,3 +49,29 @@ plugin.tx_smartmap._CSS_DEFAULT_STYLE (
 	}
 
 )
+
+################################################################################
+# AJAX
+################################################################################
+tx_smartmap_ajax = PAGE
+tx_smartmap_ajax {
+	typeNum = 1438699446
+	config {
+		disableAllHeaderCode = 1
+		additionalHeaders = Content-type:application/json
+		xhtml_cleaning = 0
+		admPanel = 0
+		debug = 0
+		no_cache = 0
+	}
+
+	10 = USER
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = Smartmap
+		pluginName = Map
+		vendorName = Phoenix
+		controller = Map
+		settings =< plugin.tx_smartmap.settings
+	}
+}
