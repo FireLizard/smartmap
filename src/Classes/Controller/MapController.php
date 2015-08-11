@@ -85,4 +85,26 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         return json_encode($response);
     }
+
+    /**
+     * Filter action.
+     *
+     * @param \Phoenix\Smartmap\Domain\Model\AbstractFilter $filter
+     */
+    public function filterAction(\Phoenix\Smartmap\Domain\Model\AbstractFilter $filter)
+    {
+        $this->settings = array_merge($this->settings, $this->helper->findFlexformDataByUid($this->request->getArguments()['uid']));
+
+        $response = array(
+            'metadata' => array(
+                'settings' => $this->settings,
+                'service' => '',
+            ),
+            'data' => array(),
+        );
+
+        $response['data'] = $this->service->getFilteredMarkers($filter);
+
+        return json_encode($response);
+    }
 }
