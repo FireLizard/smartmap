@@ -6,8 +6,24 @@ var Smartmap = (function(window, document, $, undefined){
 
         $objects = {
             wrapper: $('.smartmap'),
-            mapContainer: $('div#map-general.map', this.wrapper)
+            mapContainer: $('#map-general.map', this.wrapper),
+            filterContainer: $('#map-filter-general.map-filter', this.wrapper),
+            filterForm: $('form:first-child', this.filterContainer)
         };
+
+        registerEventHandler();
+    }
+
+    function registerEventHandler() {
+
+        $objects.filterForm.on('submit', function(e){
+            e.preventDefault();
+            var $thisForm = $(this);
+
+            $.post($thisForm.attr('action'), $thisForm.serializeArray(), function(response){
+
+            });
+        });
     }
 
     function getData() {
