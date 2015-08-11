@@ -71,7 +71,15 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
             $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
             $this->service->setDataProvider($provider);
-            $response['data'] = $this->service->{$args['service']}();
+
+            if ($this->request->hasArgument('serviceArguments')){
+
+                $response['data'] = call_user_method($args['service'], $this->service, $args['serviceArguments']);
+            }
+            else {
+                $response['data'] = $this->service->{$args['service']}();
+            }
+
             $response['metadata']['service'] = $args['service'];
         }
 
