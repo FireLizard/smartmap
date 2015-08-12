@@ -20,7 +20,7 @@ var Smartmap = (function(window, document, $, undefined){
             e.preventDefault();
             var $thisForm = $(this);
 
-            $.post($thisForm.attr('action'), $thisForm.serializeArray(), function(response){
+            $.post($objects.filterContainer.data('api-url'), $thisForm.serializeArray(), function(response){
 
             });
         });
@@ -94,7 +94,7 @@ var Smartmap = (function(window, document, $, undefined){
 
             this.pinMarker = function() {
 
-                var latLngArray = []
+                var latLngArray = [];
 
                 for (var element in data.coords) {
                     if (data.coords.hasOwnProperty(element)) {
