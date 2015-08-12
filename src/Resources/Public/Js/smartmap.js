@@ -94,15 +94,24 @@ var Smartmap = (function(window, document, $, undefined){
 
             this.pinMarker = function() {
 
+                var latLngArray = []
+
                 for (var element in data.coords) {
                     if (data.coords.hasOwnProperty(element)) {
+
+                        var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
+
+                        latLngArray.push(latLng);
+
                         markers.push(
-                            L.marker([parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon)])
+                            L.marker(latLng)
                             .addTo(map)
                             .bindPopup(data.popup[element])
                         );
                     }
                 }
+
+                map.fitBounds(L.latLngBounds(latLngArray));
 
                 return this;
             };
