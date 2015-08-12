@@ -49,8 +49,10 @@ class MapService
      */
     public function getFilteredMarkers($filter)
     {
-        $value = $this->dataProvider->getCoordsByQuery($filter);
+        $markers['coords'] = (array) $this->dataProvider->getCoordsByQuery($filter);
+        /** @TODO Do not load all PopUps ;) */
+        $markers['popup'] = (array) $this->dataProvider->getAllPopupsContent();
 
-        return $value;
+        return $markers;
     }
 }
