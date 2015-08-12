@@ -87,6 +87,15 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * Initialize filter action
+     *
+     * @TODO Try to change XClass set in TypoScript for dynamic classnames.
+     */
+    public function initializeFilterAction()
+    {
+    }
+
+    /**
      * Filter action.
      *
      * @param \Phoenix\Smartmap\Domain\Model\AbstractFilter $filter
@@ -103,6 +112,8 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             'data' => array(),
         );
 
+        $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+        $this->service->setDataProvider($provider);
         $response['data'] = $this->service->getFilteredMarkers($filter);
 
         return json_encode($response);

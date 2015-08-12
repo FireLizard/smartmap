@@ -14,4 +14,11 @@ plugin.tx_smartmap {
 	}
 	settings {
 	}
+	objects {
+		Phoenix\Smartmap\Domain\Model\AbstractFilter {
+			# customsubcategory=xclass=XClass
+			# cat=plugin.tx_smartmap/xclass/a; type=string; label=Classname of queryobject for filterform
+			className =
+		}
+	}
 }
