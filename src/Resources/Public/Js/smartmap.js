@@ -6,12 +6,10 @@ var Smartmap = (function(window, document, $, undefined){
 
         $objects = {
             wrapper: $('.smartmap'),
-            mapContainer: $('#map-general.map', this.wrapper),
-            filterContainer: $('#map-filter-general.map-filter', this.wrapper),
-            filterForm: $('form:first-child', this.filterContainer)
         };
-
-        registerEventHandler();
+        $objects.mapContainer = $('#map-general.map', $objects.wrapper);
+        $objects.filterContainer = $('#map-filter-general.map-filter', $objects.wrapper);
+        $objects.filterForm = $('form:first', $objects.filterContainer);
     }
 
     function registerEventHandler() {
@@ -122,6 +120,12 @@ var Smartmap = (function(window, document, $, undefined){
         createMap: function(){
 
             initialize();
+
+            if (typeof $objects.wrapper.get(0) === 'undefined'){
+                return this;
+            }
+
+            registerEventHandler();
             getData();
 
             return this;
