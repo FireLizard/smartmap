@@ -6,8 +6,26 @@ var Smartmap = (function(window, document, $, undefined){
 
         $objects = {
             wrapper: $('.smartmap'),
-            mapContainer: $('div#map-general.map', this.wrapper)
         };
+        $objects.mapContainer = $('#map-general.map', $objects.wrapper);
+        $objects.filterContainer = $('#map-filter-general.map-filter', $objects.wrapper);
+        $objects.filterForm = $('form:first', $objects.filterContainer);
+    }
+
+    function registerEventHandler() {
+
+        $objects.filterForm.on('submit', function(e){
+            e.preventDefault();
+            var $thisForm = $(this);
+
+            $.post($objects.filterContainer.data('api-url'), $thisForm.serializeArray(), function(response){
+
+                settings = response.metadata.settings;
+                data = response.data;
+                provider.mainLayerGroup.clearLayers();
+                provider.pinMarker();
+            });
+        });
     }
 
     function getData() {
@@ -51,8 +69,8 @@ var Smartmap = (function(window, document, $, undefined){
          */
         leaflet: function() {
 
-            var markers = [];
             var map;
+            this.mainLayerGroup = L.layerGroup();
 
             /**
              * Creates a map.
@@ -73,20 +91,28 @@ var Smartmap = (function(window, document, $, undefined){
                     subdomains: '1234'
                 }).addTo(map);
 
+                this.mainLayerGroup.addTo(map);
+
                 return this;
             };
 
             this.pinMarker = function() {
 
+                var latLngArray = [];
+
                 for (var element in data.coords) {
                     if (data.coords.hasOwnProperty(element)) {
-                        markers.push(
-                            L.marker([parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon)])
-                            .addTo(map)
-                            .bindPopup(data.popup[element])
-                        );
+
+                        var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
+                        latLngArray.push( latLng );
+
+                        this.mainLayerGroup.addLayer(L.marker(latLng).bindPopup(data.popup[element]));
                     }
                 }
+
+
+
+                map.fitBounds(L.latLngBounds(latLngArray));
 
                 return this;
             };
@@ -97,6 +123,12 @@ var Smartmap = (function(window, document, $, undefined){
         createMap: function(){
 
             initialize();
+
+            if (typeof $objects.wrapper.get(0) === 'undefined'){
+                return this;
+            }
+
+            registerEventHandler();
             getData();
 
             return this;

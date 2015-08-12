@@ -40,4 +40,19 @@ class MapService
 
         return $markers;
     }
+
+    /**
+     * Get markers filtered by a filter object. The filter object is defined by data provider.
+     *
+     * @param  mixed $filter The filter object
+     * @return array
+     */
+    public function getFilteredMarkers($filter)
+    {
+        $markers['coords'] = (array) $this->dataProvider->getCoordsByQuery($filter);
+        /** @TODO Do not load all PopUps ;) */
+        $markers['popup'] = (array) $this->dataProvider->getAllPopupsContent();
+
+        return $markers;
+    }
 }

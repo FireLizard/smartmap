@@ -71,9 +71,50 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
             $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
             $this->service->setDataProvider($provider);
-            $response['data'] = $this->service->{$args['service']}();
+
+            if ($this->request->hasArgument('serviceArguments')){
+
+                $response['data'] = call_user_method($args['service'], $this->service, $args['serviceArguments']);
+            }
+            else {
+                $response['data'] = $this->service->{$args['service']}();
+            }
+
             $response['metadata']['service'] = $args['service'];
         }
+
+        return json_encode($response);
+    }
+
+    /**
+     * Initialize filter action
+     *
+     * @TODO Try to change XClass set in TypoScript for dynamic classnames.
+     */
+    public function initializeFilterAction()
+    {
+    }
+
+    /**
+     * Filter action.
+     *
+     * @param \Phoenix\Smartmap\Domain\Model\AbstractFilter $filter
+     */
+    public function filterAction(\Phoenix\Smartmap\Domain\Model\AbstractFilter $filter)
+    {
+        $this->settings = array_merge($this->settings, $this->helper->findFlexformDataByUid($this->request->getArguments()['uid']));
+
+        $response = array(
+            'metadata' => array(
+                'settings' => $this->settings,
+                'service' => '',
+            ),
+            'data' => array(),
+        );
+
+        $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+        $this->service->setDataProvider($provider);
+        $response['data'] = $this->service->getFilteredMarkers($filter);
 
         return json_encode($response);
     }
