@@ -20,6 +20,10 @@ var Smartmap = (function(window, document, $, undefined){
 
             $.post($objects.filterContainer.data('api-url'), $thisForm.serializeArray(), function(response){
 
+                settings = response.metadata.settings;
+                data = response.data;
+                provider.mainLayerGroup.clearLayers();
+                provider.pinMarker();
             });
         });
     }
@@ -65,8 +69,8 @@ var Smartmap = (function(window, document, $, undefined){
          */
         leaflet: function() {
 
-            var markers = [];
             var map;
+            this.mainLayerGroup = L.layerGroup();
 
             /**
              * Creates a map.
@@ -87,6 +91,8 @@ var Smartmap = (function(window, document, $, undefined){
                     subdomains: '1234'
                 }).addTo(map);
 
+                this.mainLayerGroup.addTo(map);
+
                 return this;
             };
 
@@ -98,16 +104,13 @@ var Smartmap = (function(window, document, $, undefined){
                     if (data.coords.hasOwnProperty(element)) {
 
                         var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
+                        latLngArray.push( latLng );
 
-                        latLngArray.push(latLng);
-
-                        markers.push(
-                            L.marker(latLng)
-                            .addTo(map)
-                            .bindPopup(data.popup[element])
-                        );
+                        this.mainLayerGroup.addLayer(L.marker(latLng).bindPopup(data.popup[element]));
                     }
                 }
+
+
 
                 map.fitBounds(L.latLngBounds(latLngArray));
 
