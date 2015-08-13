@@ -110,9 +110,7 @@ var Smartmap = (function(window, document, $, undefined){
                         var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
                         latLngArray.push( latLng );
 
-                        var icon = L.icon({
-                            iconUrl: data.coords[element].icon
-                        });
+                        var icon = L.icon(data.coords[element].icon);
                         this.mainLayerGroup.addLayer(L.marker(latLng, {icon: icon}).bindPopup(data.popup[element]));
                     }
                 }
