@@ -67,7 +67,7 @@ tx_smartmap_ajax {
 		xhtml_cleaning = 0
 		admPanel = 0
 		debug = 0
-		no_cache = 0
+		no_cache = 1
 	}
 
 	10 = USER
