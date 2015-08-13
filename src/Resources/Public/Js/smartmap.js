@@ -106,16 +106,22 @@ var Smartmap = (function(window, document, $, undefined){
 
                 for (var element in data.coords) {
                     if (data.coords.hasOwnProperty(element)) {
+                        if (data.coords[element].hasOwnProperty('lat') && data.coords[element].hasOwnProperty('lon')) {
+                            var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
+                            latLngArray.push( latLng );
 
-                        var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
-                        latLngArray.push( latLng );
-
-                        var icon = L.icon(data.coords[element].icon);
-                        this.mainLayerGroup.addLayer(L.marker(latLng, {icon: icon}).bindPopup(data.popup[element]));
+                            var icon = {};
+                            if (data.coords[element].hasOwnProperty('icon')) {
+                                icon = L.icon(data.coords[element].icon);
+                            }
+                            this.mainLayerGroup.addLayer(L.marker(latLng, {icon: icon}).bindPopup(data.popup[element]));
+                        }
                     }
                 }
 
-                map.fitBounds(L.latLngBounds(latLngArray));
+                if (latLngArray.length > 0){
+                    map.fitBounds(L.latLngBounds(latLngArray));
+                }
 
                 return this;
             };
