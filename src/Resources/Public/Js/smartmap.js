@@ -96,6 +96,10 @@ var Smartmap = (function(window, document, $, undefined){
                 return this;
             };
 
+            /**
+             * Pins markers to map
+             * @return this
+             */
             this.pinMarker = function() {
 
                 var latLngArray = [];
@@ -106,11 +110,10 @@ var Smartmap = (function(window, document, $, undefined){
                         var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
                         latLngArray.push( latLng );
 
-                        this.mainLayerGroup.addLayer(L.marker(latLng).bindPopup(data.popup[element]));
+                        var icon = L.icon(data.coords[element].icon);
+                        this.mainLayerGroup.addLayer(L.marker(latLng, {icon: icon}).bindPopup(data.popup[element]));
                     }
                 }
-
-
 
                 map.fitBounds(L.latLngBounds(latLngArray));
 

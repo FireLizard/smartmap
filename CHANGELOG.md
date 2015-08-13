@@ -1,3 +1,6 @@
+## v0.4.0
+- Add pin icon support provided by a data provider.
+
 ## v0.3.0
 - Add filter provided by a data provider.
 - Bounds markers on leaflet map.
