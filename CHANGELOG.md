@@ -1,3 +1,6 @@
+## v0.4.2
+- Don't use an icon if not provided
+
 ## v0.4.1
 - Check if certain properties exists in coords response
 - Disable cache for AJAX-calls

@@ -112,9 +112,9 @@ var Smartmap = (function(window, document, $, undefined){
 
                             var icon = {};
                             if (data.coords[element].hasOwnProperty('icon')) {
-                                icon = L.icon(data.coords[element].icon);
+                                icon = {icon: L.icon(data.coords[element].icon)};
                             }
-                            this.mainLayerGroup.addLayer(L.marker(latLng, {icon: icon}).bindPopup(data.popup[element]));
+                            this.mainLayerGroup.addLayer(L.marker(latLng, icon).bindPopup(data.popup[element]));
                         }
                     }
                 }
