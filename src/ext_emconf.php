@@ -11,24 +11,23 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-    'title' => 'Smart Map',
-    'description' => 'A really smart TYPO3 CMS Map Extension for pretty interaction.',
-    'category' => 'plugin',
-    'author' => 'Sebastian Gierth, Steve Lenz',
+    'title'        => 'Smart Map',
+    'description'  => 'A really smart TYPO3 CMS Map Extension for pretty interaction.',
+    'category'     => 'plugin',
+    'author'       => 'Sebastian Gierth, Steve Lenz',
     'author_email' => 'seb91gi@yahoo.de, kontakt@steve-lenz.de',
-    'state' => 'alpha',
-    'internal' => '',
+    'state'        => 'alpha',
+    'internal'     => '',
     'uploadfolder' => '0',
-    'createDirs' => '',
+    'createDirs'   => '',
     'clearCacheOnLoad' => 0,
-    'version' => '0.4.2',
-    'constraints' => array(
-        'depends' => array(
+    'version'      => '0.4.2',
+    'constraints'  => array(
+        'depends'   => array(
             'typo3' => '6.2.14-7.3.99',
         ),
-        'conflicts' => array(
-        ),
-        'suggests' => array(
+        'conflicts' => array(),
+        'suggests'  => array(
             'phpunit' => '4.4.0',
         ),
     ),

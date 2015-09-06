@@ -2,7 +2,6 @@
 
 namespace Phoenix\Smartmap\Service;
 
-use TYPO3\CMS\Core\Http\AjaxRequestHandler;
 use Phoenix\Smartmap\Provider\DataProviderInterface;
 
 /**
@@ -11,17 +10,18 @@ use Phoenix\Smartmap\Provider\DataProviderInterface;
 class MapService
 {
     /**
-     * @var \Phoenix\Smartmap\Provider\DataProviderInterface
+     * @var DataProviderInterface
      */
     protected $dataProvider = null;
 
     /**
      * Set DataProvider
      *
-     * @param \Phoenix\Smartmap\Provider\DataProviderInterface $provider A DataProvider, e.g. configured by FlexForm.
+     * @param DataProviderInterface $provider A DataProvider, e.g. configured by FlexForm.
+     *
      * @return MapService
      */
-    public function setDataProvider(\Phoenix\Smartmap\Provider\DataProviderInterface $provider)
+    public function setDataProvider(DataProviderInterface $provider)
     {
         $this->dataProvider = $provider;
 
@@ -45,6 +45,7 @@ class MapService
      * Get markers filtered by a filter object. The filter object is defined by data provider.
      *
      * @param  mixed $filter The filter object
+     *
      * @return array
      */
     public function getFilteredMarkers($filter)
