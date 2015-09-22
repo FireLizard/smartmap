@@ -2,6 +2,13 @@
 
 namespace Phoenix\Smartmap\Domain\Model;
 
-class AbstractFilter extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
+/**
+ * Class AbstractFilter
+ *
+ * @package Phoenix\Smartmap\Domain\Model
+ */
+class AbstractFilter extends AbstractEntity
 {
 }

@@ -2,10 +2,15 @@
 
 namespace Phoenix\Smartmap\Controller;
 
+use Phoenix\Smartmap\Domain\Model\AbstractFilter;
+use Phoenix\Smartmap\Provider\DataProviderInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 /**
  * Map Controller.
  */
-class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class MapController extends ActionController
 {
     /**
      * MapService
@@ -13,7 +18,7 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @var \Phoenix\Smartmap\Service\MapService
      * @inject
      */
-    protected $service = NULL;
+    protected $service = null;
 
     /**
      * Helper
@@ -21,7 +26,7 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @var \Phoenix\Smartmap\Helper\Helper
      * @inject
      */
-    protected $helper = NULL;
+    protected $helper = null;
 
     /**
      * initialize action show.
@@ -36,9 +41,12 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function showAction()
     {
         $contentObj = $this->configurationManager->getContentObject();
-        $filterTemplate = NULL;
+        $filterTemplate = null;
 
-        if ($provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['flexform']['dataProviderClass'])){
+        if ($provider = GeneralUtility::makeInstance(
+            $this->settings['flexform']['dataProviderClass']
+        )
+        ) {
 
             $filterTemplate = $provider->getFilterTemplate();
         }
@@ -57,30 +65,42 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function ajaxAction()
     {
         $args = $this->request->getArguments();
-        $this->settings = array_merge($this->settings, $this->helper->findFlexformDataByUid($this->request->getArguments()['uid']));
+        $this->settings = array_merge(
+            $this->settings,
+            $this->helper->findFlexformDataByUid($this->request->getArguments()['uid'])
+        );
 
         $response = array(
             'metadata' => array(
                 'settings' => $this->settings,
                 'service' => '',
             ),
-            'data' => array(),
+            'data'     => array(),
         );
 
-        if ($this->request->hasArgument('service') && is_callable(array($this->service, $args['service']))){
+        if ($this->request->hasArgument('service') &&
+            is_callable(
+                array(
+                    $this->service,
+                    $args['service'],
+                )
+            )
+        ) {
+            $provider = GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+            if ($provider instanceof DataProviderInterface) {
 
-            $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
-            $this->service->setDataProvider($provider);
+                $this->service->setDataProvider($provider);
 
-            if ($this->request->hasArgument('serviceArguments')){
+                if ($this->request->hasArgument('serviceArguments')) {
 
-                $response['data'] = call_user_method($args['service'], $this->service, $args['serviceArguments']);
+                    $response['data'] = call_user_func([$this->service, $args['service']], $args['serviceArguments']);
+                }
+                else {
+                    $response['data'] = $this->service->{$args['service']}();
+                }
+
+                $response['metadata']['service'] = $args['service'];
             }
-            else {
-                $response['data'] = $this->service->{$args['service']}();
-            }
-
-            $response['metadata']['service'] = $args['service'];
         }
 
         return json_encode($response);
@@ -99,25 +119,33 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Filter action.
      *
-     * @param \Phoenix\Smartmap\Domain\Model\AbstractFilter $filter
+     * @param AbstractFilter $filter
+     *
+     * @return string
      */
-    public function filterAction(\Phoenix\Smartmap\Domain\Model\AbstractFilter $filter = null)
+    public function filterAction(AbstractFilter $filter)
     {
-        $this->settings = array_merge($this->settings, $this->helper->findFlexformDataByUid($this->request->getArguments()['uid']));
+        $this->settings = array_merge(
+            $this->settings,
+            $this->helper->findFlexformDataByUid($this->request->getArguments()['uid'])
+        );
 
         $response = array(
             'metadata' => array(
                 'settings' => $this->settings,
                 'service' => '',
             ),
-            'data' => array(),
+            'data'     => array(),
         );
 
         if ($filter != null) {
 
-            $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
-            $this->service->setDataProvider($provider);
-            $response['data'] = $this->service->getFilteredMarkers($filter);
+            $provider = GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+            if ($provider instanceof DataProviderInterface) {
+
+                $this->service->setDataProvider($provider);
+                $response['data'] = $this->service->getFilteredMarkers($filter);
+            }
         }
 
         return json_encode($response);
