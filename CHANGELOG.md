@@ -1,3 +1,7 @@
+## v0.4.3
+- Don't require filterquery 
+- Reformat code
+
 ## v0.4.2
 - Don't use an icon if not provided
 

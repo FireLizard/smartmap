@@ -2,6 +2,11 @@
 
 namespace Phoenix\Smartmap\Provider;
 
+/**
+ * Interface DataProviderInterface
+ *
+ * @package Phoenix\Smartmap\Provider
+ */
 interface DataProviderInterface
 {
     public function getData();
@@ -21,7 +26,7 @@ interface DataProviderInterface
     public function getAllPopupsContent();
 
     /**
-     * Returns a rendered filter formular
+     * Returns a rendered filter form
      *
      * @return string
      */
@@ -29,7 +34,9 @@ interface DataProviderInterface
 
     /**
      * Get coords by a query object
+     *
      * @param  mixed $query The query object.
+     *
      * @return array An array like: array([lat, lon], [lat, lon], ...).
      */
     public function getCoordsByQuery($query);
