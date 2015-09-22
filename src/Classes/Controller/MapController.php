@@ -93,6 +93,7 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function initializeFilterAction()
     {
+        $this->arguments->getArgument('filter')->setRequired(false);
     }
 
     /**
@@ -100,7 +101,7 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @param \Phoenix\Smartmap\Domain\Model\AbstractFilter $filter
      */
-    public function filterAction(\Phoenix\Smartmap\Domain\Model\AbstractFilter $filter)
+    public function filterAction(\Phoenix\Smartmap\Domain\Model\AbstractFilter $filter = null)
     {
         $this->settings = array_merge($this->settings, $this->helper->findFlexformDataByUid($this->request->getArguments()['uid']));
 
@@ -112,9 +113,12 @@ class MapController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             'data' => array(),
         );
 
-        $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
-        $this->service->setDataProvider($provider);
-        $response['data'] = $this->service->getFilteredMarkers($filter);
+        if ($filter != null) {
+
+            $provider = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+            $this->service->setDataProvider($provider);
+            $response['data'] = $this->service->getFilteredMarkers($filter);
+        }
 
         return json_encode($response);
     }
