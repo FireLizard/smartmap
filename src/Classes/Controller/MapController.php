@@ -40,6 +40,10 @@ class MapController extends ActionController
      */
     public function showAction()
     {
+        if ( ! $this->settings){
+            $GLOBALS['TSFE']->pageNotFoundAndExit('Settings not available');
+        }
+
         $contentObj = $this->configurationManager->getContentObject();
         $filterTemplate = null;
 
