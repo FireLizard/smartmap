@@ -12,11 +12,19 @@ var Smartmap = (function(window, document, $, undefined){
         $objects.filterForm = $('form:first', $objects.filterContainer);
     }
 
+    function addCssLoader() {
+
+        $objects.mapContainer.append('<div class="cssload-wrapper" style="display: none;"><div class="cssload-loader"><div class="cssload-inner cssload-one"></div><div class="cssload-inner cssload-two"></div><div class="cssload-inner cssload-three"></div></div></div>');
+        $objects.cssLoader = $('.cssload-wrapper', $objects.mapContainer);
+    }
+
     function registerEventHandler() {
 
         $objects.filterForm.on('submit', function(e){
             e.preventDefault();
             var $thisForm = $(this);
+
+            $objects.cssLoader.fadeIn(250);
 
             $.post($objects.filterContainer.data('api-url'), $thisForm.serializeArray(), function(response){
 
@@ -24,6 +32,7 @@ var Smartmap = (function(window, document, $, undefined){
                 data = response.data;
                 provider.mainLayerGroup.clearLayers();
                 provider.pinMarker();
+                $objects.cssLoader.fadeOut(250);
             });
         });
     }
@@ -47,6 +56,7 @@ var Smartmap = (function(window, document, $, undefined){
 
             if (typeof provider !== 'undefined'){
                 provider.createMap();
+                addCssLoader();
 
                 switch (response.metadata.service) {
                     case 'getMarkers':
