@@ -1,3 +1,7 @@
+## v0.5.0
+- Status-Code 404 if settings not available on showAction
+- Load animation on ajax request
+
 ## v0.4.3
 - Don't require filterquery 
 - Reformat code
