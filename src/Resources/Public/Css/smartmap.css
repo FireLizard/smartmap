@@ -15,10 +15,8 @@
 }
 
 .cssload-loader {
-    top: 50%;
-    margin-top: -31px;
-
-    position: relative;
+    position: absolute;
+    top: calc(50% - 31px);
     left: calc(50% - 31px);
     width: 62px;
     height: 62px;
