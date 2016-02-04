@@ -1,3 +1,6 @@
+## v0.5.1
+- Set default filterobject to null to avoid server error.
+
 ## v0.5.0
 - Status-Code 404 if settings not available on showAction
 - Load animation on ajax request
