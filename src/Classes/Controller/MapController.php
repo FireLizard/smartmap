@@ -127,7 +127,7 @@ class MapController extends ActionController
      *
      * @return string
      */
-    public function filterAction(AbstractFilter $filter)
+    public function filterAction(AbstractFilter $filter = null)
     {
         $this->settings = array_merge(
             $this->settings,
