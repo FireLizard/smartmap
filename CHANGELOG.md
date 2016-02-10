@@ -1,3 +1,6 @@
+## 0.5.2
+- Bugfix: Check uid before getting flexform from database.
+
 ## v0.5.1
 - Set default filterobject to null to avoid server error.
 

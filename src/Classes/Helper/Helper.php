@@ -20,6 +20,12 @@ class Helper extends Repository
      */
     public function findFlexformDataByUid($uid)
     {
+        if (empty($uid)){
+            return array();
+        }
+
+        $uid = (int) $uid;
+
         $query = $this->createQuery();
         $query->getQuerySettings()->setReturnRawQueryResult(true);
         $query->statement('SELECT pi_flexform from tt_content where list_type="smartmap_map" and uid = ' . $uid);
