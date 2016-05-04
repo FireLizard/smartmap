@@ -90,7 +90,7 @@ class MapController extends ActionController
                 )
             )
         ) {
-            $provider = GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+            $provider = GeneralUtility::makeInstance($this->settings['dataProviderClass'], $this->settings['persistence.storagePid']);
             if ($provider instanceof DataProviderInterface) {
 
                 $this->service->setDataProvider($provider);
@@ -144,7 +144,7 @@ class MapController extends ActionController
 
         if ($filter != null) {
 
-            $provider = GeneralUtility::makeInstance($this->settings['dataProviderClass']);
+            $provider = GeneralUtility::makeInstance($this->settings['dataProviderClass'], $this->settings['persistence.storagePid']);
             if ($provider instanceof DataProviderInterface) {
 
                 $this->service->setDataProvider($provider);
