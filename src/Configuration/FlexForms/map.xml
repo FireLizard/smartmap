@@ -16,10 +16,20 @@
                             <config>
                                 <type>select</type>
                                 <eval>required</eval>
-                                <itemsProcFunc>Phoenix\Smartmap\Service\DataProviderService->getDataProviders</itemsProcFunc>
+                                <itemsProcFunc>Phoenix\Smartmap\Service\ProviderService->getDataProviders</itemsProcFunc>
                             </config>
                         </TCEforms>
                     </settings.flexform.dataProviderClass>
+                    <settings.flexform.filterProviderClass>
+                        <TCEforms>
+                            <label>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.filterProvider</label>
+                            <config>
+                                <type>select</type>
+                                <eval>required</eval>
+                                <itemsProcFunc>Phoenix\Smartmap\Service\ProviderService->getFilterProviders</itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.flexform.filterProviderClass>
                     <persistence.storagePid>
                         <TCEforms>
                             <label>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.dataProvider.storagePid</label>
