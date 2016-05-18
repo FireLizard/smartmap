@@ -2,8 +2,10 @@
     <div class="map" id="map-general"
          data-api-url="{f:uri.action( controller: 'Map', action: 'ajax', pageType: '1438699446', arguments: '{ service: \'getMarkers\', uid: uid }' )}">
     </div>
-    <div class="map-filter" id="map-filter-general"
-         data-api-url="{f:uri.action( controller: 'Map', action: 'filter', pageType: '1438699446', arguments: '{ uid: uid }' )}">
-        <f:format.raw>{filter}</f:format.raw>
-    </div>
+    <f:if condition="{filterTemplate}">
+        <div class="map-filter" id="map-filter-general"
+             data-api-url="{f:uri.action( controller: 'Map', action: 'filter', pageType: '1438699446', arguments: '{ uid: uid }' )}">
+            <f:format.raw>{filterTemplate}</f:format.raw>
+        </div>
+    </f:if>
 </div>

@@ -4,6 +4,7 @@ namespace Phoenix\Smartmap\Controller;
 
 use Phoenix\Smartmap\Domain\Model\AbstractFilter;
 use Phoenix\Smartmap\Provider\DataProviderInterface;
+use Phoenix\Smartmap\Provider\FilterProviderInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -44,23 +45,19 @@ class MapController extends ActionController
             $GLOBALS['TSFE']->pageNotFoundAndExit('Settings not available');
         }
 
-        $contentObj = $this->configurationManager->getContentObject();
+        $cObj = $this->configurationManager->getContentObject();
         $filterTemplate = null;
 
-        if ($provider = GeneralUtility::makeInstance(
-            $this->settings['flexform']['dataProviderClass']
-        )
-        ) {
-
+        /** @var FilterProviderInterface $provider */
+        $provider = $this->objectManager->get($this->settings['flexform']['filterProviderClass']);
+        if ($provider){
             $filterTemplate = $provider->getFilterTemplate();
         }
 
-        $viewVars = array(
-            'uid' => $contentObj->data['uid'],
-            'filter' => $filterTemplate,
-        );
-
-        $this->view->assignMultiple($viewVars);
+        $this->view->assignMultiple(array(
+            'uid' => $cObj->data['uid'],
+            'filterTemplate' => $filterTemplate,
+        ));
     }
 
     /**
