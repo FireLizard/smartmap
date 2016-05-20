@@ -14,11 +14,6 @@ plugin.tx_smartmap {
 	}
 	settings {
 	}
-	objects {
-		Phoenix\Smartmap\Domain\Model\AbstractFilter {
-			className = {$plugin.tx_smartmap.objects.Phoenix\Smartmap\Domain\Model\AbstractFilter.className}
-		}
-	}
 }
 
 plugin.tx_smartmap._CSS_DEFAULT_STYLE (

@@ -9,6 +9,9 @@
 			<trans-unit id="map.dataProvider">
 				<source>Data Provider</source>
 			</trans-unit>
+			<trans-unit id="map.filterProvider">
+				<source>Filter Provider</source>
+			</trans-unit>
 			<trans-unit id="map.dataProvider.storagePid">
 				<source>Storage Pid</source>
 			</trans-unit>
