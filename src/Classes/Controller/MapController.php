@@ -51,7 +51,10 @@ class MapController extends ActionController
         /** @var FilterProviderInterface $provider */
         $provider = $this->objectManager->get($this->settings['flexform']['filterProviderClass']);
         if ($provider){
+
             $filterTemplate = $provider->getFilterTemplate();
+            $filterTemplate->setControllerContext($this->getControllerContext());
+            $filterTemplate = trim($filterTemplate->render());
         }
 
         $this->view->assignMultiple(array(
