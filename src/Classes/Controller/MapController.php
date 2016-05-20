@@ -109,12 +109,24 @@ class MapController extends ActionController
 
     /**
      * Initialize filter action
-     *
-     * @TODO Try to change XClass set in TypoScript for dynamic classnames.
      */
     public function initializeFilterAction()
     {
-        $this->arguments->getArgument('filter')->setRequired(false);
+        $this->settings = array_merge(
+            $this->settings,
+            $this->helper->findFlexformDataByUid($this->request->getArguments()['uid'])
+        );
+
+        if ($this->arguments->hasArgument('query')){
+
+            /** @var FilterProviderInterface $provider */
+            $provider = $this->objectManager->get($this->settings['filterProviderClass']);
+
+            $this->arguments->getArgument('query')
+                ->setRequired(false)
+                ->setDataType($provider->getQueryClassname())
+            ;
+        }
     }
 
     /**
@@ -126,11 +138,6 @@ class MapController extends ActionController
      */
     public function filterAction(AbstractQuery $query = null)
     {
-        $this->settings = array_merge(
-            $this->settings,
-            $this->helper->findFlexformDataByUid($this->request->getArguments()['uid'])
-        );
-
         $response = array(
             'metadata' => array(
                 'settings' => $this->settings,
