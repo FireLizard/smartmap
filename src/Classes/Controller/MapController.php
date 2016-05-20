@@ -2,7 +2,7 @@
 
 namespace Phoenix\Smartmap\Controller;
 
-use Phoenix\Smartmap\Domain\Model\AbstractFilter;
+use Phoenix\Smartmap\Domain\Model\AbstractQuery;
 use Phoenix\Smartmap\Provider\DataProviderInterface;
 use Phoenix\Smartmap\Provider\FilterProviderInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -120,11 +120,11 @@ class MapController extends ActionController
     /**
      * Filter action.
      *
-     * @param AbstractFilter $filter
+     * @param AbstractQuery $query
      *
      * @return string
      */
-    public function filterAction(AbstractFilter $filter = null)
+    public function filterAction(AbstractQuery $query = null)
     {
         $this->settings = array_merge(
             $this->settings,
@@ -139,13 +139,12 @@ class MapController extends ActionController
             'data'     => array(),
         );
 
-        if ($filter != null) {
+        if ($query != null) {
 
-            $provider = GeneralUtility::makeInstance($this->settings['dataProviderClass'], $this->settings['persistence.storagePid']);
+            $provider = $this->objectManager->get($this->settings['dataProviderClass'], $this->settings['persistence.storagePid']);
             if ($provider instanceof DataProviderInterface) {
 
-                $this->service->setDataProvider($provider);
-                $response['data'] = $this->service->getFilteredMarkers($filter);
+                $response['data'] = $this->service->setDataProvider($provider)->getFilteredMarkers($query);
             }
         }
 
