@@ -33,4 +33,10 @@ interface DataProviderInterface
      * @return array An array like: array([lat, lon], [lat, lon], ...).
      */
     public function getCoordsByQuery($query);
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function getDataByQuery($query);
 }

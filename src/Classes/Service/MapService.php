@@ -50,6 +50,7 @@ class MapService
      */
     public function getFilteredMarkers($query)
     {
+        $markers['data'] = (array) $this->dataProvider->getDataByQuery($query);
         $markers['coords'] = (array) $this->dataProvider->getCoordsByQuery($query);
         /** @TODO Do not load all PopUps ;) */
         $markers['popup'] = (array) $this->dataProvider->getAllPopupsContent();
