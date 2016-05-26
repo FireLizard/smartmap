@@ -26,13 +26,6 @@ interface DataProviderInterface
     public function getAllPopupsContent();
 
     /**
-     * Returns a rendered filter form
-     *
-     * @return string
-     */
-    public function getFilterTemplate();
-
-    /**
      * Get coords by a query object
      *
      * @param  mixed $query The query object.
@@ -40,4 +33,10 @@ interface DataProviderInterface
      * @return array An array like: array([lat, lon], [lat, lon], ...).
      */
     public function getCoordsByQuery($query);
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function getDataByQuery($query);
 }

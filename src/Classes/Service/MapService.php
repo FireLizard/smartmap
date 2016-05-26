@@ -44,13 +44,14 @@ class MapService
     /**
      * Get markers filtered by a filter object. The filter object is defined by data provider.
      *
-     * @param  mixed $filter The filter object
+     * @param  mixed $query The query object
      *
      * @return array
      */
-    public function getFilteredMarkers($filter)
+    public function getFilteredMarkers($query)
     {
-        $markers['coords'] = (array) $this->dataProvider->getCoordsByQuery($filter);
+        $markers['data'] = (array) $this->dataProvider->getDataByQuery($query);
+        $markers['coords'] = (array) $this->dataProvider->getCoordsByQuery($query);
         /** @TODO Do not load all PopUps ;) */
         $markers['popup'] = (array) $this->dataProvider->getAllPopupsContent();
 

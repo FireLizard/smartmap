@@ -16,10 +16,39 @@
                             <config>
                                 <type>select</type>
                                 <eval>required</eval>
-                                <itemsProcFunc>Phoenix\Smartmap\Service\DataProviderService->getDataProviders</itemsProcFunc>
+                                <itemsProcFunc>Phoenix\Smartmap\Service\ProviderService->getDataProviders</itemsProcFunc>
                             </config>
                         </TCEforms>
                     </settings.flexform.dataProviderClass>
+                    <settings.flexform.filterProviderClass>
+                        <TCEforms>
+                            <label>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.filterProvider</label>
+                            <config>
+                                <type>select</type>
+                                <eval>required</eval>
+                                <itemsProcFunc>Phoenix\Smartmap\Service\ProviderService->getFilterProviders</itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.flexform.filterProviderClass>
+                    <persistence.storagePid>
+                        <TCEforms>
+                            <label>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.dataProvider.storagePid</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>1</minitems>
+                                <show_thumbs>1</show_thumbs>
+                                <wizards>
+                                    <suggest>
+                                        <type>suggest</type>
+                                    </suggest>
+                                </wizards>
+                            </config>
+                        </TCEforms>
+                    </persistence.storagePid>
                     <settings.flexform.mapLibraryProvider>
                         <TCEforms>
                             <label>LLL:EXT:smartmap/Resources/Private/Language/locallang.xlf:map.mapLibraryProvider</label>

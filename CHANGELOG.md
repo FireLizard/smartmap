@@ -1,3 +1,10 @@
+## 0.6.0
+- Use of editable Storage PID
+- Use of DataType/QueryClassname instead of XCLass
+- Split Providerinterface into interfaces for filter specific data and payload data 
+- Subscription for additional data access per JavaScript
+- Some refactorings
+
 ## 0.5.2
 - Bugfix: Check uid before getting flexform from database.
 
