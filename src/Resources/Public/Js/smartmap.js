@@ -1,6 +1,6 @@
 var Smartmap = (function(window, document, $, undefined){
 
-    var $objects, settings, provider;
+    var $objects, settings, provider, dataSubscription;
 
     function initialize() {
 
@@ -10,6 +10,8 @@ var Smartmap = (function(window, document, $, undefined){
         $objects.mapContainer = $('#map-general.map', $objects.wrapper);
         $objects.filterContainer = $('#map-filter-general.map-filter', $objects.wrapper);
         $objects.filterForm = $('form:first', $objects.filterContainer);
+
+        dataSubscription = new Subscription();
     }
 
     function addCssLoader() {
@@ -30,6 +32,7 @@ var Smartmap = (function(window, document, $, undefined){
 
                 settings = response.metadata.settings;
                 data = response.data;
+                dataSubscription.setData(data).notify();
                 provider.mainLayerGroup.clearLayers();
                 provider.pinMarker();
                 $objects.cssLoader.fadeOut(250);
@@ -67,6 +70,35 @@ var Smartmap = (function(window, document, $, undefined){
             }
         });
     }
+
+    /**
+     * Subscription for incoming data
+     */
+    var Subscription = function(){
+
+        this.data = [];
+        this.subscriber = [];
+
+        this.setData = function(data){
+            this.data = data || [];
+
+            return this;
+        };
+
+        this.register = function(newSubscriber){
+            this.subscriber.push(newSubscriber);
+
+            return this;
+        };
+
+        this.notify = function(){
+            this.subscriber.forEach(function(e){
+                e.update(this.data);
+            });
+
+            return this;
+        };
+    };
 
     /**
      * Register different map provider here.
@@ -151,6 +183,11 @@ var Smartmap = (function(window, document, $, undefined){
             getData();
 
             return this;
+        },
+        subscription: {
+            subscribe: function (newSubscriber) {
+                dataSubscription.register(newSubscriber);
+            }
         }
     };
 
