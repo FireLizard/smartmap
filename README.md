@@ -34,6 +34,7 @@ To **provide your data** simple follow these steps:
 ```
 
 To **use a filterform** follow these steps:
+
 1. Implement the Interface `Phoenix\Smartmap\Provider\FilterProviderInterface`, e.g. as `My\ExtensionName\Provider\MyFilterProvider`.
 2. Register a slot for the signal inside your ext_localconf.php:
 ```php
