@@ -46,6 +46,7 @@ var Smartmap = (function(window, document, $, undefined){
 
             settings = response.metadata.settings;
             data = response.data;
+            dataSubscription.setData(data).notify();
 
             switch (settings.mapLibraryProvider) {
                 case 'leaflet':

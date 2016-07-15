@@ -35,6 +35,7 @@ class MapService
      */
     public function getMarkers()
     {
+        $markers['data'] = (array) $this->dataProvider->getDataByQuery(null);
         $markers['coords'] = (array) $this->dataProvider->getAllCoords();
         $markers['popup'] = (array) $this->dataProvider->getAllPopupsContent();
 
