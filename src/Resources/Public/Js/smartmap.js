@@ -149,7 +149,11 @@ var Smartmap = (function(window, document, $, undefined){
 
                 for (var element in data.coords) {
                     if (data.coords.hasOwnProperty(element)) {
-                        if (data.coords[element].hasOwnProperty('lat') && data.coords[element].hasOwnProperty('lon')) {
+                        if (data.coords[element].hasOwnProperty('lat') &&
+                            data.coords[element].hasOwnProperty('lon') &&
+                            data.coords[element].lat &&
+                            data.coords[element].lon
+                        ) {
                             var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
                             latLngArray.push( latLng );
 
