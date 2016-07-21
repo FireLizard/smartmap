@@ -10,6 +10,7 @@ var Smartmap = (function(window, document, $, undefined){
         $objects.mapContainer = $('#map-general.map', $objects.wrapper);
         $objects.filterContainer = $('#map-filter-general.map-filter', $objects.wrapper);
         $objects.filterForm = $('form:first', $objects.filterContainer);
+        $objects.apiKey = $('#map-general.map', $objects.wrapper).data('apiKey');
 
         dataSubscription = new Subscription();
     }
@@ -46,6 +47,7 @@ var Smartmap = (function(window, document, $, undefined){
 
             settings = response.metadata.settings;
             data = response.data;
+            dataSubscription.setData(data).notify();
 
             switch (settings.mapLibraryProvider) {
                 case 'leaflet':
@@ -125,12 +127,11 @@ var Smartmap = (function(window, document, $, undefined){
                     zoom: 12
                 });
 
-                L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg', {
+                L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token='+ $objects.apiKey, {
                     maxZoom: 18,
                     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                    subdomains: '1234'
+                    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
                 }).addTo(map);
 
                 this.mainLayerGroup.addTo(map);
@@ -148,7 +149,11 @@ var Smartmap = (function(window, document, $, undefined){
 
                 for (var element in data.coords) {
                     if (data.coords.hasOwnProperty(element)) {
-                        if (data.coords[element].hasOwnProperty('lat') && data.coords[element].hasOwnProperty('lon')) {
+                        if (data.coords[element].hasOwnProperty('lat') &&
+                            data.coords[element].hasOwnProperty('lon') &&
+                            data.coords[element].lat &&
+                            data.coords[element].lon
+                        ) {
                             var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
                             latLngArray.push( latLng );
 
