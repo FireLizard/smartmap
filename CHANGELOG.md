@@ -1,3 +1,9 @@
+## 0.6.1
+- [!!!] Breaking Changes: Since the provider of maptiles now wants an API-Key the map has no images.
+- [Hotfix] Changed provider of maptiles
+- [Improvement] Also notify subscribers on first data request
+- [Bugfix] Fixed JavaScript error when latitude and longitude were empty
+
 ## 0.6.0
 - Use of editable Storage PID
 - Use of DataType/QueryClassname instead of XCLass
