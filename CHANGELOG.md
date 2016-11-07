@@ -1,3 +1,6 @@
+## 0.6.2
+- [Improvement] map instance is now accessible by DOM element set as canvas
+
 ## 0.6.1
 - [!!!] Breaking Changes: Since the provider of maptiles now wants an API-Key the map has no images.
 - [Hotfix] Changed provider of maptiles
