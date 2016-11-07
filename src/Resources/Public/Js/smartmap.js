@@ -47,7 +47,6 @@ var Smartmap = (function(window, document, $, undefined){
 
             settings = response.metadata.settings;
             data = response.data;
-            dataSubscription.setData(data).notify();
 
             switch (settings.mapLibraryProvider) {
                 case 'leaflet':
@@ -70,6 +69,8 @@ var Smartmap = (function(window, document, $, undefined){
                     default:
                 }
             }
+
+            dataSubscription.setData(data).notify();
         });
     }
 
@@ -126,6 +127,8 @@ var Smartmap = (function(window, document, $, undefined){
                     center: [51.06971, 13.77797],
                     zoom: 12
                 });
+
+                $objects.mapContainer[0].map = map;
 
                 L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.jpg70?access_token='+ $objects.apiKey, {
                     maxZoom: 18,
