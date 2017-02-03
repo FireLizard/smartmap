@@ -1,3 +1,6 @@
+## 0.6.3
+- [Bugfix] Catched 500-error if class defined by "filterProviderClass" (flexform) was not found.
+
 ## 0.6.2
 - [Improvement] map instance is now accessible by DOM element set as canvas
 
