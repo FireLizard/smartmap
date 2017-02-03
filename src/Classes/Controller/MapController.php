@@ -7,6 +7,7 @@ use Phoenix\Smartmap\Provider\DataProviderInterface;
 use Phoenix\Smartmap\Provider\FilterProviderInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Object\Container\Exception\UnknownObjectException;
 
 /**
  * Map Controller.
@@ -122,8 +123,13 @@ class MapController extends ActionController
 
         if ($this->arguments->hasArgument('query')){
 
-            /** @var FilterProviderInterface $provider */
-            $provider = $this->objectManager->get($this->settings['filterProviderClass']);
+            try {
+                /** @var FilterProviderInterface $provider */
+                $provider = $this->objectManager->get($this->settings['filterProviderClass']);
+            }
+            catch (UnknownObjectException $e){
+                $GLOBALS['TSFE']->pageNotFoundAndExit('filterProviderClass not available');
+            }
 
             $this->arguments->getArgument('query')
                 ->setRequired(false)
