@@ -1,18 +1,19 @@
 var Smartmap = (function(window, document, $, undefined){
 
-    var $objects, settings, provider, dataSubscription;
+    var _Smartmap = {};
+    var $objects;
+    var settings;
+    var provider;
 
     function initialize() {
 
         $objects = {
-            wrapper: $('.smartmap'),
+            wrapper: $('.smartmap')
         };
         $objects.mapContainer = $('#map-general.map', $objects.wrapper);
         $objects.filterContainer = $('#map-filter-general.map-filter', $objects.wrapper);
         $objects.filterForm = $('form:first', $objects.filterContainer);
         $objects.apiKey = $('#map-general.map', $objects.wrapper).data('apiKey');
-
-        dataSubscription = new Subscription();
     }
 
     function addCssLoader() {
@@ -24,6 +25,7 @@ var Smartmap = (function(window, document, $, undefined){
     function registerEventHandler() {
 
         $objects.filterForm.on('submit', function(e){
+
             e.preventDefault();
             var $thisForm = $(this);
 
@@ -32,10 +34,9 @@ var Smartmap = (function(window, document, $, undefined){
             $.post($objects.filterContainer.data('api-url'), $thisForm.serializeArray(), function(response){
 
                 settings = response.metadata.settings;
-                data = response.data;
-                dataSubscription.setData(data).notify();
+                subscriptions.data.setData(response.data).notify();
                 provider.mainLayerGroup.clearLayers();
-                provider.pinMarker();
+                provider.pinMarker(response.data);
                 $objects.cssLoader.fadeOut(250);
             });
         });
@@ -46,7 +47,6 @@ var Smartmap = (function(window, document, $, undefined){
         $.post($objects.mapContainer.data('api-url'), null, function(response){
 
             settings = response.metadata.settings;
-            data = response.data;
 
             switch (settings.mapLibraryProvider) {
                 case 'leaflet':
@@ -64,13 +64,13 @@ var Smartmap = (function(window, document, $, undefined){
 
                 switch (response.metadata.service) {
                     case 'getMarkers':
-                        provider.pinMarker();
+                        provider.pinMarker(response.data);
                         break;
                     default:
                 }
             }
 
-            dataSubscription.setData(data).notify();
+            subscriptions.data.setData(response.data).notify();
         });
     }
 
@@ -79,28 +79,46 @@ var Smartmap = (function(window, document, $, undefined){
      */
     var Subscription = function(){
 
-        this.data = [];
-        this.subscriber = [];
+        this.data = undefined;
+        this.subscribers = [];
 
+        /**
+         * Sets data for publishing to subscribers.
+         * @param data
+         */
         this.setData = function(data){
-            this.data = data || [];
+            this.data = data;
 
             return this;
         };
 
-        this.register = function(newSubscriber){
-            this.subscriber.push(newSubscriber);
+        /**
+         * Registers a subscriber.
+         * @param newSubscriber
+         */
+        this.subscribe = function(newSubscriber){
+            this.subscribers.push(newSubscriber);
 
             return this;
         };
 
+        /**
+         * Notifies subcribers by passing data to method "update".
+         */
         this.notify = function(){
-            this.subscriber.forEach(function(e){
-                e.update(this.data);
-            });
+            this.subscribers.forEach(
+                function(e){
+                    e.update(this.data);
+                },
+                this
+            );
 
             return this;
         };
+    };
+
+    var subscriptions = {
+        data: new Subscription()
     };
 
     /**
@@ -146,7 +164,7 @@ var Smartmap = (function(window, document, $, undefined){
              * Pins markers to map
              * @return this
              */
-            this.pinMarker = function() {
+            this.pinMarker = function(data) {
 
                 var latLngArray = [];
 
@@ -178,26 +196,34 @@ var Smartmap = (function(window, document, $, undefined){
         }
     };
 
-    return {
-        createMap: function(){
+    _Smartmap.createMap = function(){
 
-            initialize();
+        initialize();
 
-            if (typeof $objects.wrapper.get(0) === 'undefined'){
-                return this;
-            }
-
-            registerEventHandler();
-            getData();
-
+        if (typeof $objects.wrapper.get(0) === 'undefined'){
             return this;
+        }
+
+        registerEventHandler();
+        getData();
+
+        return this;
+    };
+
+    _Smartmap.subscriptions = {
+        data: {
+            subscribe: function(newSubscriber){
+                subscriptions.data.subscribe(newSubscriber);
+            }
         },
-        subscription: {
-            subscribe: function (newSubscriber) {
-                dataSubscription.register(newSubscriber);
+        events: {
+            subscribe: function(newSubscriber){
+                subscriptions.events.subscribe(newSubscriber);
             }
         }
     };
+
+    return _Smartmap;
 
 })(window, document, jQuery);
 
