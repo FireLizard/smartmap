@@ -24,7 +24,38 @@ var Smartmap = (function(window, document, $, undefined){
 
     function registerEventHandler() {
 
+        var findLabel = function(object){
+
+            var $element = $('input[name="'+ object.name +'"][value="'+ object.value +'"]', $objects.filterForm);
+            var $label = undefined;
+
+            if ($element.length > 0){
+                $label = $('label[for="'+ $element.attr('id') +'"]', $objects.filterForm);
+                if ($label.length === 0){
+                    $label = $element.closest('label');
+                }
+            }
+            else {
+                $label = $('select[name="'+ object.name +'"] option[value="'+ object.value +'"]', $objects.filterForm);
+            }
+
+            return $label.text().trim();
+        };
+
         $objects.filterForm.on('submit', function(e){
+
+            var origFields = $objects.filterForm.serializeArray();
+            var fields = [];
+
+            for (var i in origFields){
+
+                if (origFields[i] && /^tx_smartmap_map\[__/.exec(origFields[i].name) === null) {
+                    origFields[i].label = findLabel(origFields[i]);
+                    fields.push(origFields[i]);
+                }
+            }
+
+            subscriptions.events.setData([e.type, $objects.filterForm.attr('id'), fields]).notify();
 
             e.preventDefault();
             var $thisForm = $(this);
@@ -118,7 +149,8 @@ var Smartmap = (function(window, document, $, undefined){
     };
 
     var subscriptions = {
-        data: new Subscription()
+        data: new Subscription(),
+        events: new Subscription()
     };
 
     /**
@@ -157,6 +189,10 @@ var Smartmap = (function(window, document, $, undefined){
 
                 this.mainLayerGroup.addTo(map);
 
+                map.on('popupopen', function(e){
+                    subscriptions.events.setData([e.type, e.popup._source.options.title]).notify();
+                });
+
                 return this;
             };
 
@@ -178,11 +214,15 @@ var Smartmap = (function(window, document, $, undefined){
                             var latLng = L.latLng(parseFloat(data.coords[element].lat), parseFloat(data.coords[element].lon));
                             latLngArray.push( latLng );
 
-                            var icon = {};
+                            var options = {
+                                title: element
+                            };
+
                             if (data.coords[element].hasOwnProperty('icon')) {
-                                icon = {icon: L.icon(data.coords[element].icon)};
+                                options.icon = L.icon(data.coords[element].icon);
                             }
-                            this.mainLayerGroup.addLayer(L.marker(latLng, icon).bindPopup(data.popup[element]));
+
+                            this.mainLayerGroup.addLayer(L.marker(latLng, options).bindPopup(data.popup[element]));
                         }
                     }
                 }
