@@ -1,23 +1,29 @@
-## 0.6.3
+Changelog
+=========
+## v0.7.0
+- [Feature] Extended subscription to type 'data' and 'events'.
+- [Feature] Trigger notification of subscribers on submitted form and clicked pins.
+
+## v0.6.3
 - [Bugfix] Catched 500-error if class defined by "filterProviderClass" (flexform) was not found.
 
-## 0.6.2
+## v0.6.2
 - [Improvement] map instance is now accessible by DOM element set as canvas
 
-## 0.6.1
+## v0.6.1
 - [!!!] Breaking Changes: Since the provider of maptiles now wants an API-Key the map has no images.
 - [Hotfix] Changed provider of maptiles
 - [Improvement] Also notify subscribers on first data request
 - [Bugfix] Fixed JavaScript error when latitude and longitude were empty
 
-## 0.6.0
+## v0.6.0
 - Use of editable Storage PID
 - Use of DataType/QueryClassname instead of XCLass
 - Split Providerinterface into interfaces for filter specific data and payload data 
 - Subscription for additional data access per JavaScript
 - Some refactorings
 
-## 0.5.2
+## v0.5.2
 - Bugfix: Check uid before getting flexform from database.
 
 ## v0.5.1
