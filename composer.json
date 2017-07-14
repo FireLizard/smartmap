@@ -1,0 +1,23 @@
+{
+  "name": "firelizard/smartmap",
+  "type": "typo3-cms-extension",
+  "description": "A really smart TYPO3 CMS Map Extension for pretty interaction.",
+  "homepage": "https://github.com/FireLizard/smartmap",
+  "license": "GPL-2.0+",
+  "keywords": ["TYPO3 CMS", "map"],
+  "support": {
+    "issues": "https://github.com/FireLizard/smartmap/issues"
+  },
+  "require": {
+    "typo3/cms-core": "^7.6.0 || ^8.7.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "FireLizard\\Smartmap": "Classes/"
+    }
+  },
+  "replace": {
+    "smartmap": "self.version",
+    "typo3-ter/smartmap": "self.version"
+  }
+}
