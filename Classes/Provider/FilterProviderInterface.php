@@ -1,12 +1,12 @@
 <?php
 
-namespace Phoenix\Smartmap\Provider;
+namespace FireLizard\Smartmap\Provider;
 
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 /**
  * Interface FilterProviderInterface
- * @package Phoenix\Smartmap\Provider
+ * @package FireLizard\Smartmap\Provider
  */
 interface FilterProviderInterface
 {

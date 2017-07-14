@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Phoenix.'.$_EXTKEY,
+    'FireLizard.'.$_EXTKEY,
     'Map',
     array(
         'Map' => 'show, ajax, filter',

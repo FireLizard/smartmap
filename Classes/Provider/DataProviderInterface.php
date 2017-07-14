@@ -1,11 +1,11 @@
 <?php
 
-namespace Phoenix\Smartmap\Provider;
+namespace FireLizard\Smartmap\Provider;
 
 /**
  * Interface DataProviderInterface
  *
- * @package Phoenix\Smartmap\Provider
+ * @package FireLizard\Smartmap\Provider
  */
 interface DataProviderInterface
 {

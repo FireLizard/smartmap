@@ -1,6 +1,6 @@
 <?php
 
-namespace Phoenix\Smartmap\Helper;
+namespace FireLizard\Smartmap\Helper;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 

@@ -19,13 +19,13 @@ Provide your payload by using Signal-Slot-Pattern
 -------------------------------------------------
 To **provide your data** simple follow these steps:
 
-1. Implement the Interface `Phoenix\Smartmap\Provider\DataProviderInterface`, e.g. as `My\ExtensionName\Provider\MyDataProvider`.
+1. Implement the Interface `FireLizard\Smartmap\Provider\DataProviderInterface`, e.g. as `My\ExtensionName\Provider\MyDataProvider`.
 2. Register a slot for the signal inside your ext_localconf.php:
 ```php
 // signal-slot to connect with EXT:smartmap
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher')->connect(
-    'Phoenix\\Smartmap\\Service\\ProviderService',
-    \Phoenix\Smartmap\Service\ProviderService::$getDataProvider_SIGNAL,
+    'FireLizard\\Smartmap\\Service\\ProviderService',
+    \FireLizard\Smartmap\Service\ProviderService::$getDataProvider_SIGNAL,
     function(&$data, $signal) {
         $data[] = array('MyDataProvider', 'My\\ExtensionName\\Provider\\MyDataProvider');
     },
@@ -35,13 +35,13 @@ To **provide your data** simple follow these steps:
 
 To **use a filterform** follow these steps:
 
-1. Implement the Interface `Phoenix\Smartmap\Provider\FilterProviderInterface`, e.g. as `My\ExtensionName\Provider\MyFilterProvider`.
+1. Implement the Interface `FireLizard\Smartmap\Provider\FilterProviderInterface`, e.g. as `My\ExtensionName\Provider\MyFilterProvider`.
 2. Register a slot for the signal inside your ext_localconf.php:
 ```php
 // signal-slot to connect with EXT:smartmap
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher')->connect(
-    'Phoenix\\Smartmap\\Service\\ProviderService',
-    \Phoenix\Smartmap\Service\ProviderService::$getFilterProvider_SIGNAL,
+    'FireLizard\\Smartmap\\Service\\ProviderService',
+    \FireLizard\Smartmap\Service\ProviderService::$getFilterProvider_SIGNAL,
     function(&$data, $signal) {
         $data[] = array('MyFilterProvider', 'My\\ExtensionName\\Provider\\MyFilterProvider');
     },
