@@ -10,10 +10,11 @@ General Information
 
 Installation
 ------------
-1. Installation via *Extension Manager* or by copying into *typo3conf/ext/smartmap*.
-2. Include static templates
-3. Include assets (found at *EXT:smartmap/Resources/Public/Css* and *EXT:smartmap/Resources/Public/Js*)
-4. Include assets of map library (**which is not included in this extension!**)
+1. Install via [composer](https://getcomposer.org/): `composer require typo3-ter/smartmap`
+2. Activate via *Extension Manager* 
+3. Include static templates
+4. Include assets (found at *EXT:smartmap/Resources/Public/Css* and *EXT:smartmap/Resources/Public/Js*)
+5. Include assets of map library (**which are not included in this extension!**)
 
 Provide your payload by using Signal-Slot-Pattern
 -------------------------------------------------
@@ -24,7 +25,7 @@ To **provide your data** simple follow these steps:
 ```php
 // signal-slot to connect with EXT:smartmap
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher')->connect(
-    'FireLizard\\Smartmap\\Service\\ProviderService',
+    \FireLizard\Smartmap\Service\ProviderService::class,
     \FireLizard\Smartmap\Service\ProviderService::$getDataProvider_SIGNAL,
     function(&$data, $signal) {
         $data[] = array('MyDataProvider', 'My\\ExtensionName\\Provider\\MyDataProvider');
@@ -40,7 +41,7 @@ To **use a filterform** follow these steps:
 ```php
 // signal-slot to connect with EXT:smartmap
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher')->connect(
-    'FireLizard\\Smartmap\\Service\\ProviderService',
+    \FireLizard\Smartmap\Service\ProviderService::class,
     \FireLizard\Smartmap\Service\ProviderService::$getFilterProvider_SIGNAL,
     function(&$data, $signal) {
         $data[] = array('MyFilterProvider', 'My\\ExtensionName\\Provider\\MyFilterProvider');
