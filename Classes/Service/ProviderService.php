@@ -1,6 +1,6 @@
 <?php
 
-namespace Phoenix\Smartmap\Service;
+namespace FireLizard\Smartmap\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -17,7 +17,7 @@ class ProviderService
      *
      * @param $config
      *
-     * @return array $config An array filled with \Phoenix\Smartmap\Provider\DataProviderInterface (if any exists).
+     * @return array $config An array filled with \FireLizard\Smartmap\Provider\DataProviderInterface (if any exists).
      */
     public static function getDataProviders($config)
     {
@@ -34,7 +34,7 @@ class ProviderService
      *
      * @param $config
      *
-     * @return array $config An array filled with \Phoenix\Smartmap\Provider\FilterProviderInterface (if any exists).
+     * @return array $config An array filled with \FireLizard\Smartmap\Provider\FilterProviderInterface (if any exists).
      */
     public static function getFilterProviders($config)
     {

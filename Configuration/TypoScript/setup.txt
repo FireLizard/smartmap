@@ -70,7 +70,7 @@ tx_smartmap_ajax {
 		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
 		extensionName = Smartmap
 		pluginName = Map
-		vendorName = Phoenix
+		vendorName = FireLizard
 		controller = Map
 		settings =< plugin.tx_smartmap.settings
 	}

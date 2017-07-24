@@ -16,7 +16,7 @@
                             <config>
                                 <type>select</type>
                                 <eval>required</eval>
-                                <itemsProcFunc>Phoenix\Smartmap\Service\ProviderService->getDataProviders</itemsProcFunc>
+                                <itemsProcFunc>FireLizard\Smartmap\Service\ProviderService->getDataProviders</itemsProcFunc>
                             </config>
                         </TCEforms>
                     </settings.flexform.dataProviderClass>
@@ -26,7 +26,7 @@
                             <config>
                                 <type>select</type>
                                 <eval>required</eval>
-                                <itemsProcFunc>Phoenix\Smartmap\Service\ProviderService->getFilterProviders</itemsProcFunc>
+                                <itemsProcFunc>FireLizard\Smartmap\Service\ProviderService->getFilterProviders</itemsProcFunc>
                             </config>
                         </TCEforms>
                     </settings.flexform.filterProviderClass>

@@ -1,8 +1,8 @@
 <?php
 
-namespace Phoenix\Smartmap\Service;
+namespace FireLizard\Smartmap\Service;
 
-use Phoenix\Smartmap\Provider\DataProviderInterface;
+use FireLizard\Smartmap\Provider\DataProviderInterface;
 
 /**
  * Service to handle map actions

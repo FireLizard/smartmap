@@ -1,5 +1,10 @@
 Changelog
 =========
+## v0.8.0
+- [!!!][Task] Added compatibility for version 7.6.0 - 8.99.99 of TYPO3 CMS
+- [!!!][Task] Refactored namespace from "Phoenix" to "FireLizard"
+- [Task] Made composer ready 
+
 ## v0.7.0
 - [Feature] Extended subscription to type 'data' and 'events'.
 - [Feature] Trigger notification of subscribers on submitted form and clicked pins.

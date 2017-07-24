@@ -1,10 +1,10 @@
 <?php
 
-namespace Phoenix\Smartmap\Controller;
+namespace FireLizard\Smartmap\Controller;
 
-use Phoenix\Smartmap\Domain\Model\AbstractQuery;
-use Phoenix\Smartmap\Provider\DataProviderInterface;
-use Phoenix\Smartmap\Provider\FilterProviderInterface;
+use FireLizard\Smartmap\Domain\Model\AbstractQuery;
+use FireLizard\Smartmap\Provider\DataProviderInterface;
+use FireLizard\Smartmap\Provider\FilterProviderInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Object\Container\Exception\UnknownObjectException;
@@ -17,7 +17,7 @@ class MapController extends ActionController
     /**
      * MapService
      *
-     * @var \Phoenix\Smartmap\Service\MapService
+     * @var \FireLizard\Smartmap\Service\MapService
      * @inject
      */
     protected $service = null;
@@ -25,7 +25,7 @@ class MapController extends ActionController
     /**
      * Helper
      *
-     * @var \Phoenix\Smartmap\Helper\Helper
+     * @var \FireLizard\Smartmap\Helper\Helper
      * @inject
      */
     protected $helper = null;
